@@ -74,5 +74,6 @@ map("n", "<Leader>fm", "<cmd>Format<CR>", s_opts("Format file"))
 map("n", "<Leader>tt", "<cmd>TagbarToggle<CR>", s_opts("Toggle Tagbar"))
 
 -- Fold
-map('n', 'zR', require('ufo').openAllFolds)
-map('n', 'zM', require('ufo').closeAllFolds)
+map('n', 'zR', require('ufo').openAllFolds, s_opts("Open all folds"))
+map('n', 'zM', require('ufo').closeAllFolds, s_opts("Close all folds"))
+map('n', 'zfm', '<cmd>let &l:foldmethod="marker"<CR>', s_opts("Set foldmethod to marker"))

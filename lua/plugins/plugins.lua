@@ -1,20 +1,23 @@
 return {
-    -- themes
+    ---------------------------------------------------------------------------
+    -- Themes {{{
+    ---------------------------------------------------------------------------
     { 'ryanoasis/vim-devicons' },
     {
         'tanvirtin/monokai.nvim',
-        config = function()
-            require('monokai').setup()
-        end
+        config = function() require('monokai').setup() end
     },
+    -- }}}
+    ---------------------------------------------------------------------------
 
-    -- UI
+
+    ---------------------------------------------------------------------------
+    -- UI {{{
+    ---------------------------------------------------------------------------
     {
         'rcarriga/nvim-notify',
         dependencies = { 'tanvirtin/monokai.nvim' },
-        config = function()
-            vim.notify = require('notify')
-        end
+        config = require('plugins.config.ui_notify').config,
     },
     { 'preservim/tagbar' },
     {
@@ -24,28 +27,12 @@ return {
             'nvim-tree/nvim-web-devicons',
             'tanvirtin/monokai.nvim',
         },
-        config = function()
-            require('alpha').setup(require('alpha.themes.startify').config)
-        end
+        config = require('plugins.config.ui_alpha').config,
     },
     {
         'lukas-reineke/indent-blankline.nvim',
         dependencies = { 'tanvirtin/monokai.nvim' },
-        config = function()
-            local highlight = {
-                "IblCustomIndent",
-            }
-            local hooks = require("ibl.hooks")
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, "IblCustomIndent", { fg = "#333842" })
-            end)
-            require('ibl').setup({
-                indent = {
-                    char = '▏',
-                    highlight = highlight,
-                },
-            })
-        end
+        config = require('plugins.config.ui_blankline').config,
     },
     { 'lukas-reineke/virt-column.nvim', dependencies = { 'tanvirtin/monokai.nvim' } },
     {
@@ -54,14 +41,56 @@ return {
             'nvim-tree/nvim-web-devicons',
             'tanvirtin/monokai.nvim',
         },
-        config = function()
-            require('lualine').setup()
-        end
+        config = function() require('lualine').setup() end
     },
     { 'ntpeters/vim-better-whitespace' },
     { 'famiu/bufdelete.nvim' },
+    {
+        'akinsho/bufferline.nvim',
+        version = '*',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'tanvirtin/monokai.nvim',
+        },
+        config = require('plugins.config.ui_bufferline').config,
+    },
+    {
+        's1n7ax/nvim-window-picker',
+        name = 'window-picker',
+        event = 'VeryLazy',
+        version = '2.*',
+        config = function() require('window-picker').setup() end,
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+            "3rd/image.nvim",
+            's1n7ax/nvim-window-picker',
+            'tanvirtin/monokai.nvim',
+        },
+        config = require("plugins.config.ui_neotree").config,
+    },
+    {
+        'luukvbaal/statuscol.nvim',
+        dependencies = { 'tanvirtin/monokai.nvim' },
+        config = require('plugins.config.ui_statuscol').config,
+    },
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        config = require("plugins.config.ui_ufo").config,
+    },
+    -- }}}
+    ---------------------------------------------------------------------------
 
-    -- Features
+
+    ---------------------------------------------------------------------------
+    -- Features {{{
+    ---------------------------------------------------------------------------
     {
         'numToStr/Comment.nvim',
         opts = {
@@ -75,67 +104,72 @@ return {
     {
         -- send code to interactive interpretator
         'jpalardy/vim-slime',
-        config = function()
-            vim.g.slime_target = 'kitty'
-        end
+        config = require('plugins.config.feat_slime').config,
     },
     { 'voldikss/vim-floaterm' }, -- open terminal in popup window
+    -- }}}
+    ---------------------------------------------------------------------------
 
-    -- Syntax support
+
+    ---------------------------------------------------------------------------
+    -- Syntax support {{{
+    ---------------------------------------------------------------------------
     {
         'nvim-treesitter/nvim-treesitter',
-        config = function()
-            vim.cmd [[TSUpdate]]
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = {
-                    "go",
-                    "python",
-                    "lua",
-                    "vim",
-                    "vimdoc",
-                    "query",
-                    "bash",
-                    "csv",
-                    "diff",
-                    "dockerfile",
-                    "gitignore",
-                    "gomod",
-                    "html",
-                    "javascript",
-                    "json",
-                    "make",
-                    "markdown",
-                    "regex",
-                    "toml",
-                    "typescript",
-                    "xml",
-                    "yaml",
-                },
-            }
-        end
+        config = require('plugins.config.syntax_treesitter').config,
     },
+    -- }}}
+    ---------------------------------------------------------------------------
 
-    -- Formatters
 
-    -- Auto complete
+    ---------------------------------------------------------------------------
+    -- LSP {{{
+    ---------------------------------------------------------------------------
+    {
+        'neoclide/coc.nvim',
+        branch = 'release',
+        config = require('plugins.config.lsp_coc').config,
+    },
+    -- }}}
+    ---------------------------------------------------------------------------
+
+
+    ---------------------------------------------------------------------------
+    -- Autocomplete {{{
+    ---------------------------------------------------------------------------
     { 'github/copilot.vim' },
+    -- }}}
+    ---------------------------------------------------------------------------
 
-    -- Utils
+
+    ---------------------------------------------------------------------------
+    -- Utils {{{
+    ---------------------------------------------------------------------------
     {
         'dstein64/vim-startuptime',
-        init = function()
-            vim.g.startuptime_tries = 5
-            vim.g.startuptime_event_width = 50
-        end,
+        init = require('plugins.config.utils_startuptime').init,
         cmd = 'StartupTime',
     },
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        }
+        opts = {}
     },
+    {
+        'mikesmithgh/kitty-scrollback.nvim',
+        enabled = true,
+        lazy = true,
+        cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
+        event = { 'User KittyScrollbackLaunch' },
+        version = '*', -- latest stable version, may have breaking changes if major version changed
+        config = function() require('kitty-scrollback').setup() end,
+    },
+    { "junegunn/fzf", build = "./install --bin" },
+    {
+        "ibhagwan/fzf-lua",
+        dependencies = { "nvim-tree/nvim-web-devicons", "junegunn/fzf" },
+        config = function() require("fzf-lua").setup() end
+    },
+    -- }}}
+    ---------------------------------------------------------------------------
 }
