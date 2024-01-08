@@ -10,16 +10,6 @@ autocmd("BufEnter", {
     group = group,
     pattern = "*",
 })
-autocmd("BufEnter", {
-    callback = function()
-        if vim.fn.winnr('$') == 1 and vim.bo[0].filetype == 'neo-tree' then
-            vim.cmd('q')
-        end
-    end,
-    desc = "Quit Neotree if it is the only window left.",
-    group = group,
-    pattern = "*",
-})
 
 -- auto toggle tagbar on file enter
 group = augroup("open_tagbar", { clear = true })

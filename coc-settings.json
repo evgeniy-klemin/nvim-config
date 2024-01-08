@@ -33,5 +33,6 @@
     "golines.args": [
         "-m",
         "120"
-    ]
+    ],
+    "git.enableGutters": true
 }

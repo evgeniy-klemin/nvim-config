@@ -14,7 +14,7 @@ M.config = function()
             offsets = {
                 {
                     filetype = 'neo-tree',
-                    text = 'File Explorer',
+                    text = 'Navigation',
                     highlight = 'Directory',
                     text_align = 'center',
                     separator = true,
