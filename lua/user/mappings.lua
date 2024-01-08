@@ -15,8 +15,10 @@ map("n", "Q", "<cmd>q<CR>", s_opts("Exit"))
 
 -- open terminal in popup
 map("n", "<Leader><Leader>t", function()
-    vim.cmd [[FloatermNew]]
+    vim.cmd [[FloatermToggle]]
 end, s_opts("Open terminal in popup"))
+map("t", "<Leader><Leader>t", "<C-\\><C-n><cmd>FloatermToggle<CR>", s_opts("Close terminal in popup"))
+map("t", "<Esc>", "<C-\\><C-n>", s_opts("Go to normal mode in terminal"))
 
 -- enter normal mode in terminal
 -- map("t", "<Esc>", "<C-\\><C-n>", s_opts())
