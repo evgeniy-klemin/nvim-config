@@ -42,12 +42,6 @@ map("n", "<Leader>fgb", "<cmd>FzfLua git_branches<CR>", s_opts("Fuzzy find git b
 map("n", "<Leader>fl", "<cmd>FzfLua live_grep_glob<CR>", s_opts("Fuzzy find in files"))
 map("n", "<Leader>fr", "<cmd>FzfLua resume<CR>", s_opts("Fuzzy find resume"))
 
--- easy window navigation
-map("n", "<C-h>", "<C-w>h", s_opts("Navigate to left window"))
-map("n", "<C-j>", "<C-w>j", s_opts("Navigate to bottom window"))
-map("n", "<C-k>", "<C-w>k", s_opts("Navigate to top window"))
-map("n", "<C-l>", "<C-w>l", s_opts("Navigate to right window"))
-
 -- copy word under cursor using buffer 1
 map("n", "yw", 'viw"1y', s_opts("Copy word under cursor"))
 map("n", "pw", 'viw"1p', s_opts("Paste word under cursor"))
@@ -77,3 +71,21 @@ map("n", "<Leader>tt", "<cmd>TagbarToggle<CR>", s_opts("Toggle Tagbar"))
 map('n', 'zR', require('ufo').openAllFolds, s_opts("Open all folds"))
 map('n', 'zM', require('ufo').closeAllFolds, s_opts("Close all folds"))
 map('n', 'zfm', '<cmd>let &l:foldmethod="marker"<CR>', s_opts("Set foldmethod to marker"))
+
+-- Resizing splits
+-- these keymaps will also accept a range,
+-- for example `10<S-A-h>` will `resize_left` by `(10 * config.default_amount)`
+vim.keymap.set('n', '<S-A-h>', require('smart-splits').resize_left)
+vim.keymap.set('n', '<S-A-j>', require('smart-splits').resize_down)
+vim.keymap.set('n', '<S-A-k>', require('smart-splits').resize_up)
+vim.keymap.set('n', '<S-A-l>', require('smart-splits').resize_right)
+-- moving between splits
+vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+-- swapping buffers between windows
+vim.keymap.set('n', '<leader><leader>h', require('smart-splits').swap_buf_left)
+vim.keymap.set('n', '<leader><leader>j', require('smart-splits').swap_buf_down)
+vim.keymap.set('n', '<leader><leader>k', require('smart-splits').swap_buf_up)
+vim.keymap.set('n', '<leader><leader>l', require('smart-splits').swap_buf_right)

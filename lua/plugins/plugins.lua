@@ -108,6 +108,11 @@ return {
         config = require('plugins.config.feat_slime').config,
     },
     { 'voldikss/vim-floaterm' }, -- open terminal in popup window
+    {
+        "mrjones2014/smart-splits.nvim",
+        lazy = true,
+        opts = { ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" }, ignored_buftypes = { "nofile" } },
+    },
     -- }}}
     ---------------------------------------------------------------------------
 

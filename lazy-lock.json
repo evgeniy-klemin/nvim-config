@@ -22,6 +22,7 @@
   "nvim-window-picker": { "branch": "main", "commit": "41cfaa428577c53552200a404ae9b3a0b5719706" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "promise-async": { "branch": "main", "commit": "94f6f03c6c1e2aab551aacdf0c1e597a7269abb6" },
+  "smart-splits.nvim": { "branch": "master", "commit": "403ad1a4fd7eb39388690a5657e7cbfb16da6668" },
   "statuscol.nvim": { "branch": "main", "commit": "3b629754420919575a9e5758027d6e1831dbf2aa" },
   "tagbar": { "branch": "master", "commit": "fcd31ec145bbc628b90371be381717a1498b7c12" },
   "vim-better-whitespace": { "branch": "master", "commit": "1b22dc57a2751c7afbc6025a7da39b7c22db635d" },
