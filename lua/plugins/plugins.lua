@@ -168,19 +168,31 @@ return {
     -- { 'github/copilot.vim' },
     {
         'zbirenbaum/copilot.lua',
-        config = function() require("copilot").setup({
-            suggestion = {
-                auto_trigger = true,
-                keymap = {
-                  accept = "<S-Tab>",
-                  accept_word = false,
-                  accept_line = false,
-                  next = "<C-]>",
-                  prev = "<C-[>",
-                  dismiss = "<C-x>",
+        config = function()
+            require("copilot").setup({
+                suggestion = {
+                    auto_trigger = true,
+                    keymap = {
+                      accept = false,
+                      accept_word = false,
+                      accept_line = false,
+                      next = "<C-]>",
+                      prev = "<C-[>",
+                      dismiss = "<C-x>",
+                    },
                 },
-            },
-        }) end,
+            })
+            -- super tab - accept suggestion or do normal tab
+            vim.keymap.set("i", '<Tab>', function()
+              if require("copilot.suggestion").is_visible() then
+                require("copilot.suggestion").accept()
+              else
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+              end
+            end, {
+              silent = true,
+            })
+        end,
     },
     {
         "zbirenbaum/copilot-cmp",
@@ -254,7 +266,9 @@ return {
     opts = function()
       return require('plugins.config.autocomplete_cmp').opts
     end,
-    config = function(_, opts) require("cmp").setup(opts) end,
+    config = function(_, opts)
+        require("cmp").setup(opts)
+    end,
   },
     -- }}}
     ---------------------------------------------------------------------------

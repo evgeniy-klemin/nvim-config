@@ -74,7 +74,10 @@ M.opts = {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<Esc>"] = cmp.mapping.close(),
+    ["<Esc>"] = cmp.mapping(function(fallback)
+        cmp.mapping.close()
+        fallback()
+    end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
@@ -115,6 +118,25 @@ M.opts = {
   --         compare.sort_text,
   --     },
   -- },
+
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require("copilot_cmp.comparators").prioritize,
+
+      -- Below is the default comparitor list and order for nvim-cmp
+      compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      compare.exact,
+      compare.score,
+      compare.recently_used,
+      compare.locality,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+      compare.order,
+    },
+  },
 
   matching = {
       disallow_fuzzy_matching = true,
