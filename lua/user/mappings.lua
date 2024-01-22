@@ -20,9 +20,6 @@ end, s_opts("Open terminal in popup"))
 map("t", "<Leader><Leader>t", "<C-\\><C-n><cmd>FloatermToggle<CR>", s_opts("Close terminal in popup"))
 map("t", "<Esc>", "<C-\\><C-n>", s_opts("Go to normal mode in terminal"))
 
--- enter normal mode in terminal
--- map("t", "<Esc>", "<C-\\><C-n>", s_opts())
-
 -- Toggle fold (single level)
 map("n", "<Space><Space>", "foldlevel('.') ? 'za' : '<Space>'", se_opts("Toggle fold"))
 
@@ -34,8 +31,8 @@ map("v", "<A-k>", ":m '<-2<CR>gv-gv", s_opts("Move block up"))
 
 -- Text helpers
 -- add a new line before and after the cursor
-map("n", "oo", "o<Esc>k", s_opts("Add new line below"))
-map("n", "OO", "O<Esc>j", s_opts("Add new line above"))
+-- map("n", "oo", "o<Esc>k", s_opts("Add new line below"))
+-- map("n", "OO", "O<Esc>j", s_opts("Add new line above"))
 
 -- fzf mapping
 map("n", "<Leader>ff", "<cmd>FzfLua files<CR>", s_opts("Fuzzy find files"))
